@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const exphbs = require('express-handlebars');
-
+const homeRoutes = require('./routes/home');
+const authRoutes = require('./routes/auth');
 // подключение hbs
 const hbs = exphbs.create({
     defaultLayout: 'main',
@@ -13,12 +14,8 @@ app.engine('hbs', hbs.engine);  // hbs по названию экстеншен�
 app.set('view engine', 'hbs'); // начинаем его использовать 
 app.set('views', 'views'); // настройка папки по дефолту
 
-app.get('/', function(req, res){
-    //res.send('Hello, World');
-    //res.sendFile(path.join(__dirname, 'views', 'index.html'));
-    res.render('index')  //hbs 
-});
-
+app.use('/', homeRoutes);
+app.use('/auth', authRoutes);
 
 
 
