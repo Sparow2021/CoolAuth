@@ -13,6 +13,8 @@ const hbs = exphbs.create({
 app.engine('hbs', hbs.engine);  // hbs по названию экстеншена регистрируем движок
 app.set('view engine', 'hbs'); // начинаем его использовать 
 app.set('views', 'views'); // настройка папки по дефолту
+app.use(express.static('public')); // чтобы можно было корневой статической папкой сделать
+
 
 app.use('/', homeRoutes);
 app.use('/auth', authRoutes);
