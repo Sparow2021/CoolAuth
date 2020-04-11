@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const exphbs = require('express-handlebars');
-//const session = require('express-session');
+const session = require('express-session');
+const varMiddleware = require('./middleware/variables')
 const homeRoutes = require('./routes/home');
 const authRoutes = require('./routes/auth');
 const chatRoutes = require('./routes/chat');
@@ -21,11 +22,14 @@ app.set('views', 'views'); // настройка папки по дефолту
 
 app.use(express.static('public')); // чтобы можно было корневой статической папкой сделать
 
-// app.use(session({
-//     secret: 'some secret value',
-//     resave: false,
-//     saveUninitialized: false
-// }))  // теперь мы можем обращатьс к объекту req.session и хранить определённые данные внутри сессии
+app.use(session({
+    secret: 'some secret value',
+    resave: false,
+    saveUninitialized: false
+}))  // теперь мы можем обращатьс к объекту req.session и хранить определённые данные внутри сессии
+
+app.use(varMiddleware);
+
 
 app.use('/', homeRoutes);
 app.use('/auth', authRoutes);
