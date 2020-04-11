@@ -1,0 +1,28 @@
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">InChat</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+
+        {{#if isPhotos}}
+            <li class="active"><a  href="/photos">Фотографии</a></li>
+        {{else}}
+            <li><a  href="/photos">Фотографии</a></li>
+        {{/if}}
+
+
+        {{#if isChat}}
+            <li class ="active"><a  href="/chat">Чат</a></li>
+        {{else}}
+            <li><a  href="/chat">Чат</a></li>
+        {{/if}}
+
+
+        {{#if isLogin}}
+            <li class="active" ><a href="/auth">Войти</a></li>
+        {{else}}
+            <li><a  href="/auth">Войти</a></li>
+        {{/if}}
+
+      </ul>
+    </div>
+  </nav>

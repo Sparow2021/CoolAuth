@@ -9,7 +9,7 @@
         <div id="login" class="col s6 offset-s3">
             <h1>Войти в чат</h1>
             {{!-- форма1 --}}
-            <form action="/add" method="POST">
+            <form action="/auth/login" method="POST">
 
                 <div class="input-field">
                     <input id="email" name="email" type="email" class="validate" required>
@@ -29,8 +29,8 @@
         </div>
         <div id="register" class="col s6 offset-s3">
             <h1>Регистрация в чате</h1>
-            {{!-- форма1 --}}
-            <form action="/add" method="POST">
+            {{!-- форма2 --}}
+            <form action="/auth/register" method="POST">
 
                 <div class="input-field">
                     <input id="remail" name="email" type="email" class="validate" required>

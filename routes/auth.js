@@ -8,6 +8,9 @@ router.get('/', (req, res) => {
     })
 })
 
-
+// router.post('/login', async(req, res) => {
+//     req.session.isAuthenticated = true // если залогинилиь. Это своя перемменная
+//     res.redirect('/')
+// })
 
 module.exports = router
