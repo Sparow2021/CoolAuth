@@ -1,6 +1,8 @@
+// sparoW2021
 const express = require('express');
 const app = express();
 const path = require('path');
+const mongoose = require('mongoose');
 const exphbs = require('express-handlebars');
 const session = require('express-session');
 const varMiddleware = require('./middleware/variables')
@@ -8,8 +10,9 @@ const homeRoutes = require('./routes/home');
 const authRoutes = require('./routes/auth');
 const chatRoutes = require('./routes/chat');
 const photosRoutes = require('./routes/photos');
-
-
+//подключение монгоДБ
+const password = 'E3Z0CH1TXN0WPilR'; //пользователя CoolAuthDb
+const url = `mongodb+srv://vladilen:E3Z0CH1TXN0WPilR@cluster0-buxki.mongodb.net/test?retryWrites=true&w=majority`
 // подключение hbs
 const hbs = exphbs.create({
     defaultLayout: 'main',
@@ -36,6 +39,18 @@ app.use('/auth', authRoutes);
 app.use('/chat', chatRoutes);
 app.use('/photos', photosRoutes);
 
-app.listen(3000, function(){
-    console.log('Server is running on PORT 3000...');
-})
+async function start() {
+    try {
+        await mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true })
+    //запуск приложения после подгрузки БД
+        app.listen(3000, function(){
+        console.log('Server is running on PORT 3000...');
+    })}catch (e) {
+        console.log(e)
+    }
+}
+    
+
+start();// пакет mongoose работает с промисами
+
+
