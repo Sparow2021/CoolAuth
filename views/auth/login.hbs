@@ -8,7 +8,7 @@
         </div>
         <div id="login" class="col s6 offset-s3">
             <h1>Войти в чат</h1>
-            {{!-- форма1 --}}
+            {{!-- форма1 логирование ВХОД!!! --}}
             <form action="/auth/login" method="POST">
 
                 <div class="input-field">
@@ -29,7 +29,7 @@
         </div>
         <div id="register" class="col s6 offset-s3">
             <h1>Регистрация в чате</h1>
-            {{!-- форма2 --}}
+            {{!-- форма2 регистрация--}}
             <form action="/auth/register" method="POST">
 
                 <div class="input-field">
@@ -48,6 +48,12 @@
                     <input id="confirm" name="confirm" type="password" class="validate" required>
                     <label for="confirm">Пароль ещё раз</label>
                     <span class="helper-text" data-error="Введите пароль"></span>
+                </div>
+
+                <div class="input-field">
+                    <input id="name" name="name" type="text" class="validate" required>
+                    <label for="name">Ваше имя</label>
+                    <span class="helper-text" data-error="Введите имя"></span>
                 </div>
 
                 <button class="btn btn-primary" type="submit">Зарегистрироваться</button>

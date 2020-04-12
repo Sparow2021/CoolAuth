@@ -32,7 +32,7 @@ app.set('view engine', 'hbs'); // начинаем его использоват
 app.set('views', 'views'); // настройка папки по дефолту
 
 app.use(express.static('public')); // чтобы можно было корневой статической папкой сделать
-
+app.use(express.urlencoded({extended: false}))
 app.use(session({
     secret: 'some secret value',
     resave: false,
