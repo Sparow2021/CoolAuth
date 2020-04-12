@@ -11,8 +11,17 @@ router.get('/login', async (req, res) => {
 
 
 router.post('/login', async(req, res) => {
+    //ждём получения определённого пользователя
+    const user = await User.findById('5e936b7002269a1200009506');
+    req.session.user = user
     req.session.isAuthenticated = true // если залогинилиь. Это своя перемменная
-    res.redirect('/')
+    
+    req.session.save(err => {// .save() потому что ждём занесения данных в сессию, чтобы не произошло редиректа
+        if(err){
+            throw err
+        }
+        res.redirect('/')
+    })  
 })
 
 router.get('/logout', async (req, res) => {

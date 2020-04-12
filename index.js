@@ -10,6 +10,8 @@ const homeRoutes = require('./routes/home');
 const authRoutes = require('./routes/auth');
 const chatRoutes = require('./routes/chat');
 const photosRoutes = require('./routes/photos');
+const User=require('./models/user')
+
 //подключение монгоДБ
 const password = 'E3Z0CH1TXN0WPilR'; //пользователя CoolAuthDb
 const url = `mongodb+srv://vladilen:E3Z0CH1TXN0WPilR@cluster0-buxki.mongodb.net/test?retryWrites=true&w=majority`
@@ -33,6 +35,15 @@ app.use(session({
 
 app.use(varMiddleware);
 
+// app.use(async (req, res, next) => {
+//     try{
+//         const user = await User.findById('5e936b7002269a1200009506');
+//         req.user = user // полноценный объект mongoose
+//         next()
+//     }catch(e){
+//         console.log(e);
+//     } 
+// })
 
 app.use('/', homeRoutes);
 app.use('/auth', authRoutes);
@@ -42,7 +53,15 @@ app.use('/photos', photosRoutes);
 async function start() {
     try {
         await mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true })
-    //запуск приложения после подгрузки БД
+        const candidate = await User.findOne(); // есть ли хоть 1 пользователь в системе
+        if(!candidate) {
+            const user = new User({
+                email: 'SparoW2021@yandex.ru',
+                name: 'VladPashkovski'
+            })
+            await user.save()
+        }
+        //запуск приложения после подгрузки БД
         app.listen(3000, function(){
         console.log('Server is running on PORT 3000...');
     })}catch (e) {
