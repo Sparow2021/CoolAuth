@@ -13,17 +13,32 @@ router.get('/login', async (req, res) => {
 
 
 router.post('/login', async(req, res) => {
-    //ждём получения определённого пользователя
-    const user = await User.findById('5e936b7002269a1200009506');
-    req.session.user = user
-    req.session.isAuthenticated = true // если залогинилиь. Это своя перемменная
-    
-    req.session.save(err => {// .save() потому что ждём занесения данных в сессию, чтобы не произошло редиректа
-        if(err){
-            throw err
+    try{
+        const {email, password} = req.body
+        const candidate = await User.findOne({email})
+
+        if(candidate){
+            const areSame = password === candidate.password
+            if(areSame){
+                //ждём получения определённого пользователя
+                req.session.user = candidate
+                req.session.isAuthenticated = true // если залогинилиь. Это своя перемменная
+                req.session.save(err => {// .save() потому что ждём занесения данных в сессию, чтобы не произошло редиректа
+                if(err){
+                    throw err
+                }
+                res.redirect('/')
+                }) 
+            }else{
+                res.redirect('/auth/login#login')
+            }
+        }else{
+            res.redirect('/auth/login#login')
         }
-        res.redirect('/')
-    })  
+    }catch(e){
+        console.log(e)
+    }
+   
 })
 
 router.get('/logout', async (req, res) => {
