@@ -2,6 +2,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const csrf = require('csurf')
 const mongoose = require('mongoose');
 const exphbs = require('express-handlebars');
 const session = require('express-session');
@@ -39,7 +40,7 @@ app.use(session({
     saveUninitialized: false,
     store: store
 }))  // теперь мы можем обращатьс к объекту req.session и хранить определённые данные внутри сессии
-
+app.use(csrf()); // после сессии
 app.use(varMiddleware);
 
 
